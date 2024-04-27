@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <h2>Comentarios</h2>
+    <p>Texto: {{ texto.contenido }}</p>
+    {% if comentarios %}
+        <ul>
+            {% for comentario in comentarios %}
+                <li>
+                    <strong>{{ comentario.nombre }}</strong> ({{ comentario.correo }}) - {{ comentario.fecha }}:<br>
+                    {{ comentario.comentario }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay comentarios para este texto.</p>
+    {% endif %}
+    <a href="{% url 'home' %}">Volver al inicio</a>
+{% endblock %}

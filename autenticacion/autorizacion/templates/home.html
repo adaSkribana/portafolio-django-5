@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <h2>Bienvenido al sistema</h2>
+    <p>Has iniciado sesión correctamente.</p>
+    <section>
+        <div class="mt-5 mx-5 p-10 text-center">
+            <h1 class="ml-6 pt-1 text-base text-gray-800 leading-normal">Lista de Posts</h1>
+                {% for texto in textos %}
+                    <div class="ml-6 pt-1">
+                        <h2 class="text-4xl">{{ texto.titulo }}</h2>
+                        <p>{{ texto.contenido }}</p>
+                        <p class="text-1xl">Publicado el: {{ texto.fecha_publicacion }}</p>
+                        <a href="{% url 'add_comment_with_texto' texto.id %}">Agregar comentario</a>
+                        <a href="{% url 'view_comments' texto.id %}">Ver comentarios</a>
+                    </div>
+                    <hr>
+                {% endfor %}
+            <h2>Comentarios</h2>
+            <p>Texto: {{ texto.contenido }}</p>
+            {% if comentarios %}
+                <ul>
+                    {% for comentario in comentarios %}
+                        <li>
+                            <strong>{{ comentario.nombre }}</strong> ({{ comentario.correo }}) - {{ comentario.fecha }}:<br>
+                            {{ comentario.comentario }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay comentarios para este texto.</p>
+            {% endif %}
+            <a href="{% url 'home' %}">Volver al inicio</a>
+        </div>
+    </section>
+{% endblock %}
